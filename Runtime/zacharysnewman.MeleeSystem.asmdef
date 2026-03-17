@@ -1,0 +1,16 @@
+{
+    "name": "zacharysnewman.MeleeSystem",
+    "rootNamespace": "",
+    "references": [
+        "zacharysnewman.CombatContracts"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
