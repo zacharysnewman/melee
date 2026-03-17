@@ -1,6 +1,6 @@
 {
   "name": "com.zacharysnewman.melee-system",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "Melee System",
   "description": "Config-driven reactive first-person melee system.",
   "unity": "2022.3",
