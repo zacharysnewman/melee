@@ -5,7 +5,7 @@
   "description": "Config-driven reactive first-person melee system.",
   "unity": "2022.3",
   "dependencies": {
-    "com.zacharysnewman.combat-contracts": "1.0.0"
+    "com.zacharysnewman.combat-contracts": "https://github.com/zacharysnewman/combat-contracts.git#1.0.0"
   },
   "author": {
     "name": "zacharysnewman",
