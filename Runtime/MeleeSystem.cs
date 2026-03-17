@@ -43,7 +43,7 @@ public class MeleeSystem : MonoBehaviour
     private void Awake()
     {
         if (_castOrigin == null)
-            _castOrigin = transform;
+            _castOrigin = GetComponentInChildren<Camera>()?.transform;
     }
 
     private void Update()
@@ -174,34 +174,34 @@ public class MeleeSystem : MonoBehaviour
         switch (Traits.DetectionMode)
         {
             case MeleeDetectionMode.Raycast:
-            {
-                if (MeleeUtils.TryRaycast(origin, dir, range, Traits.HitLayers, out RaycastHit hit))
                 {
-                    var (point, normal) = MeleeUtils.ContactFromHit(hit);
-                    ResolveHit(hit.collider, point, normal, damage);
+                    if (MeleeUtils.TryRaycast(origin, dir, range, Traits.HitLayers, out RaycastHit hit))
+                    {
+                        var (point, normal) = MeleeUtils.ContactFromHit(hit);
+                        ResolveHit(hit.collider, point, normal, damage);
+                    }
+                    break;
                 }
-                break;
-            }
             case MeleeDetectionMode.SphereCast:
-            {
-                if (MeleeUtils.TrySphereCast(origin, dir, Traits.AttackRadius, range, Traits.HitLayers, out RaycastHit hit))
                 {
-                    var (point, normal) = MeleeUtils.ContactFromHit(hit);
-                    ResolveHit(hit.collider, point, normal, damage);
+                    if (MeleeUtils.TrySphereCast(origin, dir, Traits.AttackRadius, range, Traits.HitLayers, out RaycastHit hit))
+                    {
+                        var (point, normal) = MeleeUtils.ContactFromHit(hit);
+                        ResolveHit(hit.collider, point, normal, damage);
+                    }
+                    break;
                 }
-                break;
-            }
             case MeleeDetectionMode.OverlapSphere:
-            {
-                Collider[] cols = MeleeUtils.OverlapSphere(origin, dir, range, Traits.AttackRadius, Traits.HitLayers);
-                int count = Mathf.Min(cols.Length, Traits.MaxTargets);
-                for (int i = 0; i < count; i++)
                 {
-                    var (point, normal) = MeleeUtils.ContactFromCollider(cols[i], origin);
-                    ResolveHit(cols[i], point, normal, damage);
+                    Collider[] cols = MeleeUtils.OverlapSphere(origin, dir, range, Traits.AttackRadius, Traits.HitLayers);
+                    int count = Mathf.Min(cols.Length, Traits.MaxTargets);
+                    for (int i = 0; i < count; i++)
+                    {
+                        var (point, normal) = MeleeUtils.ContactFromCollider(cols[i], origin);
+                        ResolveHit(cols[i], point, normal, damage);
+                    }
+                    break;
                 }
-                break;
-            }
         }
     }
 
@@ -253,9 +253,6 @@ public class MeleeSystem : MonoBehaviour
 
     private Vector3 AimDirection()
     {
-        Camera cam = Camera.main;
-        if (cam != null)
-            return cam.transform.forward;
         return _castOrigin.forward;
     }
 }
